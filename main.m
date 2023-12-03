@@ -104,11 +104,11 @@ for i=1:length(data(:,1))
         datanum(i)=i;%datanum save the remaining clusters
     end
 end
-figure('NumberTitle', 'off', 'Name', '低密度区域');
+figure('NumberTitle', 'off', 'Name', 'low density area');
 showShapeSet(data([silarm],:));
 set(gca,'looseInset',[0 0 0 0]);
 puri_datanum=find (datanum>0);% 提取datanum中大于0的元序号。
-figure('NumberTitle', 'off', 'Name', '高密度区域');
+figure('NumberTitle', 'off', 'Name', 'high density area');
 showShapeSet(data([puri_datanum],:)); set(gca,'looseInset',[0 0 0 0]);
 %% dbscan
 high_ords=intersect(puri_datanum,ords);%find the cluster centers in the high-densiyt area
@@ -129,7 +129,7 @@ distmat=computeSimi(data([puri_datanum],:));
 showShapeSet(data([puri_datanum],:)); set(gca,'looseInset',[0 0 0 0]);
 Clust = DBSCAN(distmat,Eps,MinPts);
 idx([puri_datanum])=Clust;
-figure('NumberTitle', 'off', 'Name', 'DBSCAN聚类结果');
+figure('NumberTitle', 'off', 'Name', 'DBSCAN clustering results');
 hold on;
 drawgraph(Clust,data([puri_datanum],:));
 idx1=idx;
@@ -198,7 +198,7 @@ end
 %%
 idx=idx';
 Evaluation(label,idx);
-figure('NumberTitle', 'off', 'Name', '最终聚类结果');
+figure('NumberTitle', 'off', 'Name', 'final clustering result');
 drawgraph(idx,data);
 
 

@@ -2,12 +2,12 @@ clc;clear;close all
 %addpath('D:\mega\work\evaluation', 'D:\mega\work\Complicate','D:\mega\work\UCI','D:\mega\work\drawGraph');
 %addpath('D:\mega\work\Celldata');
 %load ('yeast.mat');
-load ('pathbase.mat');
+load ('pathbased.mat');
 
 %% paramters setting
 percent=0.4% 
 mdelta=3.5;
-shapeset =M;
+shapeset =data;
 distset = computeSimi(shapeset);% 
 %% DPC algorithm
 dc = computeDc(distset, percent);% 
@@ -17,7 +17,6 @@ min_delta=mdelta;
 min_rho=0;
 xstep=max(rhos)/10;%default values,it is a fixed value for all the datasets.
 showDG(rhos, deltas);% 
-
 filter = (rhos > min_rho) & (deltas > min_delta);
 cluster_num = sum(filter)%
 ords = find(filter);%
@@ -41,6 +40,8 @@ index=cluster;
 %drawgraph(index',shapeset);
 xlim1=get(gca,'Xlim');
 ylim1=get(gca,'Ylim'); 
+disp(ylim1);
+disp(xlim1);
 subspace={};
 for i=1:(xlim1(2)/xstep)
     subspace{i}=find(rhos([ords])>=(i-1)*xstep & rhos([ords])<=i*xstep);
@@ -53,6 +54,7 @@ for i=1:length(subspace)
         ss(i)=1;
     end
 end
+
 last1 = find(ss,1,'last');
 first1=find(ss,1);
 ss = ss(first1:last1); %

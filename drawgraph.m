@@ -2,18 +2,23 @@ function drawgraph(cluster, data)
     unique_clusters = unique(cluster);
     colors = lines(length(unique_clusters));
 
+    % Create a new figure
     figure;
-    hold on;
+
+    % Use gca to get the current axes
+    ax = gca;
+
+    hold(ax, 'on');
 
     for i = 1:length(unique_clusters)
         cluster_points = data(cluster == unique_clusters(i), :);
-        scatter(cluster_points(:, 1), cluster_points(:, 2), 50, colors(i, :), 'filled');
+        scatter(ax, cluster_points(:, 1), cluster_points(:, 2), 50, colors(i, :), 'filled');
     end
 
-    title('DPC Clustering Results');
-    xlabel('X-axis');
-    ylabel('Y-axis');
-    legend(arrayfun(@(x) sprintf('Cluster %d', x), unique_clusters, 'UniformOutput', false));
+    title(ax, 'DPC Clustering Results');
+    xlabel(ax, 'X-axis');
+    ylabel(ax, 'Y-axis');
+    legend(ax, arrayfun(@(x) sprintf('Cluster %d', x), unique_clusters, 'UniformOutput', false));
 
-    hold off;
+    hold(ax, 'off');
 end
